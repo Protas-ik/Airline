@@ -1,8 +1,10 @@
 package com.example.airline.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Time;
 import java.sql.Date;
 
@@ -13,7 +15,11 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Please fill the fromPort")
+    @Length(max = 64, message = "fromPort too long")
     private String fromPort;
+    @NotBlank(message = "Please fill the toPort")
+    @Length(max = 64, message = "toPort too long")
     private String toPort;
     //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateFlight;

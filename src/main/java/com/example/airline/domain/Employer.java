@@ -1,6 +1,9 @@
 package com.example.airline.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "employers")
@@ -8,14 +11,12 @@ public class Employer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Please fill the name")
     private String name;
+    @NotBlank(message = "Please fill the surname")
     private String surname;
     private Profession profession;
     private Long brigadeId = null;
-
-
-
-
 
     public Employer() {
     }

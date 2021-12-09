@@ -10,12 +10,22 @@
             Add new employer
         </a>
 
-        <div class="collapse" id="collapseExample">
+        <div class="collapse <#if employer??>show</#if>" id="collapseExample">
             <div class="form-group mt-3">
                 <form action="/employer" method="post">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Name" class="form-control"/>
+                        <input type="text" class="form-control ${(nameError??)?string('is-invalid', '')}"
+                               value="<#if employer??>${employer.name}</#if>" name="name" placeholder="Name" />
+                        <#if nameError??>
+                            <div class="invalid-feedback">
+                                ${nameError}
+                            </div>
+                        </#if>
                     </div>
+<#--
+                        <input type="text" name="name" placeholder="Name" class="form-control"/>
+-->
+
                     <div class="form-group">
                         <input type="text" name="surname" placeholder="Surname" class="form-control"/>
                     </div>

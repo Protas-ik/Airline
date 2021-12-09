@@ -22,7 +22,7 @@
                 <a class="nav-link" href="/user">User List</a>
             </li>
             </#if>
-            <#if isDispatcher ||isAdmin>
+            <#if isDispatcher || isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/employer">Employers</a>
                 </li>
@@ -32,10 +32,15 @@
                     <a class="nav-link" href="/brigade">Brigade List</a>
                 </li>
             </#if>
+            <#if isUser>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/profile">Profile</a>
+                </li>
+            </#if>
         </ul>
 
         <div class="navbar-text mr-3">${name}</div>
-        <#if isDispatcher || isAdmin>
+        <#if isDispatcher || isAdmin || isUser || isGod>
             <@l.logout />
 
         <#else>

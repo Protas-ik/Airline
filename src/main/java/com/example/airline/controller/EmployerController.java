@@ -6,8 +6,10 @@ import com.example.airline.repos.EmployerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -40,18 +42,23 @@ public class EmployerController {
 
     @PostMapping
     public String add(
-            @RequestParam String name,
-            @RequestParam String surname,
-            @RequestParam Profession profession,
-            Map<String, Object> model
+            @Valid Employer employer,
+            BindingResult bindingResult,
+            Model model
     ) {
-        Employer employer = new Employer(name, surname, profession);
 
-        employerRepo.save(employer);
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("employer", employer);
+        } else {
+            employerRepo.save(employer);
+        }
 
         Iterable<Employer> employers = employerRepo.findAll();
 
-        model.put("employers", employers);
+        model.addAttribute("employers", employers);
 
         return "redirect:/employer";
     }

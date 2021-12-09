@@ -1,6 +1,9 @@
 package com.example.airline.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "brigades")
@@ -8,6 +11,8 @@ public class Brigade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Please fill the name")
+    @Length(max = 64, message = "Name too long")
     private String name;
     private Boolean isFree = true;
 
